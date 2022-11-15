@@ -32,9 +32,12 @@
     "html-pdf": "^3.0.1",
     "jsdom": "^19.0.0",
     "mongoose": "^6.3.2",
+    "morgan": "^1.10.0",
     "puppeteer": "^13.7.0",
     "puppeteer-core": "^13.7.0",
-    "qs": "^6.10.3"
+    "qs": "^6.10.3",
+    "rotating-file-stream": "^3.0.4",
+    "update": "^0.7.4"
   },
   "devDependencies": {
     "eslint": "^8.15.0",

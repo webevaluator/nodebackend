@@ -21,15 +21,29 @@ mongoose
     useNewUrlParser: true,
     useUnifiedTopology: true
   })
-  .then(() => console.log("Mongoose connected with db",db))
+  .then(() => console.log("Mongoose connected with db", db))
   .then(() => cookieModel.countDocuments())
   .then(count => {
-    if(!count) {
+    if (!count) {
       return cookieModel.insertMany(cookieData);
     }
   })
   .catch((err) => console.log(err));
 
+var morgan = require('morgan')
+var rfs = require('rotating-file-stream') // version 2.x
+// create a rotating write stream
+var accessLogStream = rfs.createStream('access.log', {
+  interval: '1d', // rotate daily
+  path: path.join(__dirname, './logs')
+})
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
+
+// app.get('/', function (req, res) {
+//   res.send('hello, world!')
+// })
 // use routes
 app.use("/api/status", require("./routes/status"));
 app.use("/api/errors", require("./routes/errors"));
@@ -37,7 +51,6 @@ app.use("/api/cchecker", require("./routes/cookie"));
 app.use("/api/screenshot", require("./routes/screenshot"));
 app.use("/api/sniffer", require("./routes/sniffer"));
 app.use("/api/pdf", require("./routes/pdf"));
-
 // serve static assets if we are in production
 if (process.env.NODE_ENV === "production") {
   // set static folder
