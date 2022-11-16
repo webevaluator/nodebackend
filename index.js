@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const cookieModel = require("./models/cookie");
 const cookieData = require("./data/cookies");
+const bodyParser = require("body-parser");
 
 const app = express();
 require("dotenv").config();
@@ -11,6 +12,9 @@ require("dotenv").config();
 // Bodyparser middleware
 app.use(express.json());
 app.use(cors());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 // DB config
 const db = process.env.MONGODB_URL || "mongodb://localhost/webevaluator";
